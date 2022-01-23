@@ -84,21 +84,19 @@ function showData(dataDy, dataVa){
           }
         ],
     dataZoom: [
-          {
-            type: 'inside',
-            start: 98,
-            end: 100,
-            minValueSpan: 30
-          },
-          {
-            show: true,
-            type: 'slider',
-            bottom: 60,
-            start: 98,
-            end: 100,
-            minValueSpan: 30
-          }
-        ],
+      {
+        type: 'inside',
+        start: dataDy.length-30,
+      },
+      {
+        show: true,
+        type: 'slider',
+        bottom: 60,
+        start: dataDy.length-30,
+        end: dataDy.length,
+        minValueSpan: 30
+      }
+    ],
     series: [
       {
         type: 'candlestick',

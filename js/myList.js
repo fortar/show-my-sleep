@@ -57,10 +57,11 @@ new Vue({
       return '#f00'
     },
     getData() {
-      let url = '/api/sleep-2022/list'
+      let url = apiRoot + '/sleep-2022/list'
       axios.get(url)
       .then( res => {
         this.list = res.data || []
+        this.list.reverse()
         this.loading = false
         this.finished = true
       })
@@ -72,9 +73,11 @@ new Vue({
       })
     },
     startEditMonthDay() {
+      // this.defaultTime = this.monthDay
+      
+      this.defaultTime = new Date((new Date()).getFullYear() + "-" + this.monthDay)
       this.timeType = 'day'
       this.showTimePopup = true;
-      this.defaultTime = this.startTime
     },
     dateFormatter(type, val) {
       if (type === 'month') {
