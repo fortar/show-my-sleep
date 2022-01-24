@@ -1,3 +1,5 @@
+import utils from './utils.js'
+
 function hm2hh (hm) {
   hm = hm || ''
   hm = '' + hm
@@ -44,7 +46,46 @@ function hh2hm (hh) {
 
 
 function showData(dataDy, dataVa){
+  let timeLengthData = []
+  dataVa.map(ad => {
+    timeLengthData.push(ad.value[1] - ad.value[0])
+  })
+
   let option = {
+    legend: {
+      show: true,
+      bottom: 0,
+      formatter: function(name){
+        if (name == '睡眠时间') {
+          return `${name}(绿色-12点前睡，粉色-小于6小时，蓝色-正常)`
+        } else {
+          return name
+        }
+      },
+      data: [{
+        name: '睡眠时间',
+        itemStyle: {
+          borderColor: '#fff',
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 1,
+            y2: 0,
+            colorStops: [{
+                offset: 0, color: '#7bd9a5' // 0% 处的颜色
+            }, {
+                offset: 0.5, color: '#59c4e6' // 100% 处的颜色
+            }, {
+              offset: 1, color: '#edafda' // 100% 处的颜色
+          }],
+            global: false // 缺省为 false
+          } 
+        }
+      }, {
+        name: '睡眠时长'
+      }]
+    },
     title: {
       text: "2022"
     },
@@ -60,7 +101,9 @@ function showData(dataDy, dataVa){
         sl = sl.replace(":", ".") + " 小时"
         let t = a[0].data.value[5]
         
-        return  `<span style="font-weight:bold">${a[0].axisValue}</span> <br>
+        let dw = utils.getDayOfWeek("2022-" + a[0].axisValue)
+
+        return  `<span style="font-weight:bold">${a[0].axisValue}（${dw}）</span> <br>
         睡：${hh2hm(s)} <br>
         起：${hh2hm(e)} <br>
         长：${sl} <br>
@@ -99,14 +142,31 @@ function showData(dataDy, dataVa){
     ],
     series: [
       {
+        name: '睡眠时间',
         type: 'candlestick',
         data: dataVa
+      },
+      {
+        name: '睡眠时长',
+        type: 'line',
+        lineStyle: {
+          type: 'dotted'
+        },
+        data: timeLengthData,
+        markLine: { 
+          data: [{ type: 'average', name: 'Avg' }],
+          label: {
+            position: 'insideEndTop',
+            formatter: '平均时长：{c}'
+          }
+        }
       }
     ]
   };
 
   var myChart = echarts.init(document.getElementById('myChart'));
   myChart.setOption(option);
+  
 }
 
 

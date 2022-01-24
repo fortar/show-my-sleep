@@ -1,3 +1,5 @@
+import utils from './utils.js'
+
 Vue.use(vant.Lazyload);
 
 let apiRoot = "/api"
@@ -62,6 +64,9 @@ new Vue({
       .then( res => {
         this.list = res.data || []
         this.list.reverse()
+        this.list.map(it => {
+          it.dayWithWeek = utils.getDayOfWeek("2022-" + it.day)
+        })
         this.loading = false
         this.finished = true
       })
