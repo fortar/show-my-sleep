@@ -166,7 +166,10 @@ function showData(dataDy, dataVa){
 
   var myChart = echarts.init(document.getElementById('myChart'));
   myChart.setOption(option);
-  
+
+  window.addEventListener("resize", () => {
+      myChart.resize();
+  });
 }
 
 
