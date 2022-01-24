@@ -1,13 +1,12 @@
 # show-my-sleep
 
 - 自己弄的 睡眠时间可视化 工具页面。
-- 设计技术栈 Vue, Vant, Echarts, Vercel, TypeScript, Node.js, MongoDB
 
-## 版本
+- 涉及技术栈 Vue, Vant, Echarts, Vercel, TypeScript, Node.js, MongoDB
 
 - 最开始弄的是纯前端，数据写死在 js/data.js，定期更新该文件，直接放到 github，通过 gh-pages 分支来访问。但这种方式存在以下问题：1. github仓库必需为public，否则无法使用 github pages。（prvate的参考也可以，但是需要付费）。2. 根据数据不方便。3. github 有时无法访问（需要科学上网才行）
 
-- 后来托管部署到 [vercel](https://vercel.com/) 了，源代码还是放在 github, vercel 中的站点已关联了 github 中的仓库，本地开发完成 push 到 github 后，vercel 会自动构建。
+- 后来托管部署到 [vercel](https://vercel.com/) 了，源代码还是放在 github, vercel 中的站点已关联了 github 中的仓库，本地开发完成 push 到 github 后，vercel 会自动构建。若不想把代码放到 github，直接本机开发后推送到 vercel, 则可在本地使用 vercel-cli。  根目录下直接运行 vercel 即可，第一运行时会登录vercel, 并在vervel 中创建工程、绑定到本地当前目录，vercel 运行完成后，会在根目录下新建 .vercel 文件夹，里面存放 vercel 的账户信息、工程信息等。（默认情况下 .vercel 文件夹不会提交到代码库）
 
 - 前后端统一放在一个仓库。数据库直接用的是 [mongodb](https://cloud.mongodb.com/) 云数据库，注册了用户、新建了 database, collection 等。（cluster: ClusterSleep, database: sleep, collection: sleep-2022, 设计时打算每个年度使用一个 collection）
 
